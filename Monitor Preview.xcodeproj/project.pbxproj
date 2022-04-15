@@ -108,6 +108,7 @@
 				F87983162809C89300032A8D /* Preview Content */,
 				F879833B2809D04E00032A8D /* DisplayStream.swift */,
 				F879833D2809E74B00032A8D /* DisplayPreviewView.swift */,
+				F825E226280A1CD100009AD7 /* icon.svg */,
 			);
 			path = "Monitor Preview";
 			sourceTree = "<group>";
@@ -133,7 +134,6 @@
 			children = (
 				F879832C2809C89300032A8D /* Monitor_PreviewUITests.swift */,
 				F879832E2809C89300032A8D /* Monitor_PreviewUITestsLaunchTests.swift */,
-				F825E226280A1CD100009AD7 /* icon.svg */,
 			);
 			path = "Monitor PreviewUITests";
 			sourceTree = "<group>";
