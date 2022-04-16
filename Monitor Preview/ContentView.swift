@@ -17,7 +17,7 @@ struct ContentView: View {
             VStack {
                 VStack {
                     Spacer()
-                    Text("Display Selection").font(.title2)
+                    Text(LocalizedStringKey("Display Selection")).font(.title2)
                 }
                 .frame(height: 35)
                 Spacer()
@@ -34,7 +34,7 @@ struct ContentView: View {
                                         Spacer()
                                     }
                                     HStack {
-                                        Text("\(displayProp(displayId: dId)) @ \(dId)")
+                                        Text(LocalizedStringKey("\(displayProp(displayId: dId)) @ \(dId)"))
                                         Spacer()
                                     }
                                 }
@@ -43,7 +43,9 @@ struct ContentView: View {
                 }
                 VStack {
                     Divider()
-                    Button("Refresh Displays", action: refreshDisplays)
+                    Button(action: refreshDisplays, label: {
+                        Text(LocalizedStringKey("Refresh Displays"))
+                    })
                     Spacer()
                 }
                 .frame(height: 35)
