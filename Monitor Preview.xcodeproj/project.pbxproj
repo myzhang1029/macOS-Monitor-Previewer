@@ -14,6 +14,7 @@
 		F87983182809C89300032A8D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87983172809C89300032A8D /* Preview Assets.xcassets */; };
 		F879833C2809D04E00032A8D /* DisplayStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833B2809D04E00032A8D /* DisplayStream.swift */; };
 		F879833E2809E74B00032A8D /* DisplayPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833D2809E74B00032A8D /* DisplayPreviewView.swift */; };
+		F8EC6E04280B2103006C8B5C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8EC6E03280B2103006C8B5C /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		F87983282809C89300032A8D /* Monitor PreviewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Monitor PreviewUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F879833B2809D04E00032A8D /* DisplayStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayStream.swift; sourceTree = "<group>"; };
 		F879833D2809E74B00032A8D /* DisplayPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPreviewView.swift; sourceTree = "<group>"; };
+		F8EC6E03280B2103006C8B5C /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 		F87983042809C89000032A8D = {
 			isa = PBXGroup;
 			children = (
+				F8EC6E03280B2103006C8B5C /* Localizable.strings */,
 				F879830F2809C89000032A8D /* Monitor Preview */,
 				F879830E2809C89000032A8D /* Products */,
 			);
@@ -218,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F87983182809C89300032A8D /* Preview Assets.xcassets in Resources */,
+				F8EC6E04280B2103006C8B5C /* Localizable.strings in Resources */,
 				F825E227280A1CD100009AD7 /* icon.svg in Resources */,
 				F87983152809C89300032A8D /* Assets.xcassets in Resources */,
 			);
