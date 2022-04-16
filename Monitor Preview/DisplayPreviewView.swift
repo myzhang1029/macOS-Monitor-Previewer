@@ -17,7 +17,12 @@ struct DisplayPreviewView: View {
     
     var body: some View {
         VStack{
-            Text("Previewing Display \(displayId)").font(.title2)
+            VStack {
+                Spacer()
+                Text("Previewing Display \(displayId)").font(.title2)
+            }
+            .frame(height: 35)
+            Spacer()
             if currentFrame != nil {
                 Image(nsImage: currentFrame!)
                     .resizable()
@@ -25,8 +30,15 @@ struct DisplayPreviewView: View {
             } else {
                 Text("Display or streaming not active")
             }
-            Button("Stop/Start", action: setupStream)
+            Spacer()
+            VStack {
+                Divider()
+                Button("Restart", action: setupStream)
+                Spacer()
+            }
+            .frame(height: 35)
         }
+        .frame(minWidth: 400, minHeight: 400)
         .onAppear(perform: setupStream)
         .onDisappear {
             displayStream?.stop()

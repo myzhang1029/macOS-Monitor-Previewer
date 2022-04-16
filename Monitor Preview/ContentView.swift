@@ -15,8 +15,11 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Spacer()
-                Text("Display Selection").font(.title2)
+                VStack {
+                    Spacer()
+                    Text("Display Selection").font(.title2)
+                }
+                .frame(height: 35)
                 Spacer()
                 List {
                     /* the display id is unique */
@@ -38,10 +41,14 @@ struct ContentView: View {
                             })
                     }
                 }
-                Spacer()
-                Button("Refresh Displays", action: refreshDisplays)
-                Spacer()
+                VStack {
+                    Divider()
+                    Button("Refresh Displays", action: refreshDisplays)
+                    Spacer()
+                }
+                .frame(height: 35)
             }
+            .frame(minWidth: 200, minHeight: 400)
         }
         .onAppear(perform: refreshDisplays)
     }
