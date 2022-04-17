@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  Monitor Preview
+
+  Created by 张迈允 on 2022-04-16.
+  
+*/
+
+/* %1$@ is a string WIDTHxHEIGHT xx.x Hz,
+ * %2$@ is the display index (an integer)
+ */
+"%@ @ %@" = "%1$@ @ %2$@";
+
+/* Placeholder when streaming frame is unavailable. */
+"Display or streaming not active" = "未開啟顯示器或未開始預覽流";
+
+/* Title. */
+"Display Selection" = "選擇顯示器";
+
+/* Title. %@ is the display index (an integer) */
+"Previewing Display %@" = "正在預覽第 %@ 個顯示器";
+
+/* Button. */
+"Refresh Displays" = "重新整理顯示器列表";
+
+/* Button for restarting preview stream. */
+"Restart" = "重新開始";
