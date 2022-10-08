@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F825E227280A1CD100009AD7 /* icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = F825E226280A1CD100009AD7 /* icon.svg */; };
 		F87983112809C89000032A8D /* Monitor_PreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87983102809C89000032A8D /* Monitor_PreviewApp.swift */; };
 		F87983132809C89000032A8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87983122809C89000032A8D /* ContentView.swift */; };
 		F87983152809C89300032A8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87983142809C89300032A8D /* Assets.xcassets */; };
@@ -31,6 +30,7 @@
 		F8EC6E19280B929D006C8B5C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		F8EC6E1A280B92A3006C8B5C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F8EC6E1E280B9327006C8B5C /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F8EC6E23280B9952006C8B5C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +72,7 @@
 				F879833B2809D04E00032A8D /* DisplayStream.swift */,
 				F879833D2809E74B00032A8D /* DisplayPreviewView.swift */,
 				F825E226280A1CD100009AD7 /* icon.svg */,
+				F8EC6E23280B9952006C8B5C /* README.md */,
 			);
 			path = "Monitor Preview";
 			sourceTree = "<group>";
@@ -111,6 +112,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				KnownAssetTags = (
+					New,
+				);
 				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
@@ -147,7 +151,6 @@
 			files = (
 				F87983182809C89300032A8D /* Preview Assets.xcassets in Resources */,
 				F8EC6E05280B21CA006C8B5C /* Localizable.strings in Resources */,
-				F825E227280A1CD100009AD7 /* icon.svg in Resources */,
 				F87983152809C89300032A8D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
