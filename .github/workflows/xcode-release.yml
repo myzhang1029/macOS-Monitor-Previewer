@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Clean
         run: xcodebuild -configuration Release clean
       - name: Build
@@ -21,7 +21,7 @@ jobs:
       - name: Pack Application
         run: tar -C build/Release -zcvf MonitorPreview.tar.gz Monitor\ Preview.app
       - name: Upload
-        uses: actions/upload-artifact@v3.0.0
+        uses: actions/upload-artifact@v4
         with:
           path: MonitorPreview.tar.gz
           name: MonitorPreview.tar.gz
