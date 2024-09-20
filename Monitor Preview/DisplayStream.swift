@@ -10,7 +10,7 @@ import Foundation
 import CoreGraphics
 
 /** Make it possible to use CGError as an Error */
-extension CGError: Error {
+extension CGError: @retroactive Error {
     
 }
 
