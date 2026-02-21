@@ -9,24 +9,23 @@ import AppKit
 import Foundation
 import CoreGraphics
 
-/** Make it possible to use CGError as an Error */
-extension CGError: @retroactive Error {
-    
+struct MPError: Error {
+    var inner: CGError
 }
 
 /** Get an Array of active displays */
-func getDisplays() -> Result<[CGDirectDisplayID], CGError> {
+func getDisplays() -> Result<[CGDirectDisplayID], MPError> {
     let pDsplCnt = UnsafeMutablePointer<UInt32>.allocate(capacity: 1)
     /* Get the number of active displays. Race condition? */
     let result1 = CGGetOnlineDisplayList(UInt32.max, nil, pDsplCnt)
     if result1 != .success {
-        return .failure(result1)
+        return .failure(MPError(inner: result1))
     }
     let displays = UnsafeMutablePointer<CGDirectDisplayID>.allocate(capacity: Int(pDsplCnt.pointee))
     /* Get active displays */
     let result2 = CGGetOnlineDisplayList(pDsplCnt.pointee, displays, pDsplCnt)
     if result2 != .success {
-        return .failure(result2)
+        return .failure(MPError(inner: result2))
     }
     /* Convert result to a Swift Array */
     let displaysArr = Array(UnsafeBufferPointer(start: displays, count: Int(pDsplCnt.pointee)))
