@@ -43,9 +43,13 @@ struct ContentView: View {
                 }
                 VStack {
                     Divider()
-                    /*Button(action: refreshDisplays, label: {
+                    Button {
+                        Task {
+                            await refreshDisplays()
+                        }
+                    } label: {
                         Text(LocalizedStringKey("Refresh Displays"))
-                    })*/
+                    }
                     Spacer()
                 }
                 .frame(height: 35)
