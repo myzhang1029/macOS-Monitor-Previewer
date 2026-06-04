@@ -38,19 +38,13 @@ func displayName(display: SCDisplay) -> String {
 
 /** Summarize display properties */
 func displayProp(display: SCDisplay) -> String {
-    let displayId = display.displayID
-    var prop = ""
-    switch CGDisplayCopyDisplayMode(displayId)
-    {
-    case .some(let displayMode):
+    if let displayMode = CGDisplayCopyDisplayMode(display.displayID) {
         let width = displayMode.pixelWidth
         let height = displayMode.pixelHeight
         let refRate = displayMode.refreshRate
-        prop = "\(width)x\(height) \(refRate) Hz"
-    case .none:
-        prop = ""
+        return "\(width)x\(height) @ \(refRate) Hz"
     }
-    return prop
+    return ""
 }
 
 /** Set up a display streaming with default parameters and internal size */
