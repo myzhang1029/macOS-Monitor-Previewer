@@ -6,22 +6,17 @@
   
 */
 
-/* %1$@ is a string WIDTHxHEIGHT xx.x Hz,
- * %2$@ is the display index (an integer)
- */
-"%@ @ %@" = "%1$@ @ %2$@";
-
 /* Placeholder when streaming frame is unavailable. */
-"Display or streaming not active" = "未開啟顯示器或未開始預覽流";
+"Display or streaming not active" = "未開啟該螢幕或未開始預覽流";
 
 /* Title. */
-"Display Selection" = "選擇顯示器";
+"Display Selection" = "選擇螢幕";
 
-/* Title. %@ is the display index (an integer) */
-"Previewing Display %@" = "正在預覽第 %@ 個顯示器";
+/* Title. %u is the display index (an integer) */
+"Previewing Display %u" = "預覽螢幕 %u";
 
 /* Button. */
-"Refresh Displays" = "重新整理顯示器列表";
+"Refresh Displays" = "重新掃描螢幕列表";
 
 /* Button for restarting preview stream. */
 "Restart" = "重新開始";

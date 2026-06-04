@@ -11,7 +11,6 @@ import ScreenCaptureKit
 /** Get an Array of active displays */
 func getDisplays() async -> [SCDisplay] {
     guard let shareable = try? await SCShareableContent.current else {
-        print("No display found")
         return []
     }
     return shareable.displays

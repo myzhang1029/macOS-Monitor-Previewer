@@ -18,7 +18,7 @@ struct DisplayPreviewView: View {
         VStack{
             VStack {
                 Spacer()
-                Text(LocalizedStringKey("Previewing Display \(display.displayID)")).font(.title2)
+                Text("Previewing Display \(display.displayID)").font(.title2)
             }
             .frame(height: 35)
             Spacer()
@@ -27,7 +27,7 @@ struct DisplayPreviewView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             } else {
-                Text(LocalizedStringKey("Display or streaming not active"))
+                Text("Display or streaming not active")
             }
             Spacer()
             VStack {
@@ -38,7 +38,7 @@ struct DisplayPreviewView: View {
                         try? await setupStream()
                     }
                 } label: {
-                    Text(LocalizedStringKey("Restart"))
+                    Text("Restart")
                 }
                 Spacer()
             }
