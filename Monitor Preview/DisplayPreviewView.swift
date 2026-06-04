@@ -56,58 +56,17 @@ struct DisplayPreviewView: View {
     }
 
     /** Set up display streaming */
-    func setupStream() async throws {
+    private func setupStream() async throws {
         streamer = try ScreenStreamer(display: display, onFrame: updateFrame)
     }
 
     private func updateFrame(imageBuffer: CVImageBuffer) {
-        let context = CIContext()
-        let ciImage = CIImage(cvPixelBuffer: imageBuffer)
-        let cgImage = context.createCGImage(ciImage, from: ciImage.extent)
-        if cgImage != nil {
-            currentFrame = NSImage(cgImage: cgImage!, size: .zero)
+        if let image = cvImageBufferToNSImage(imageBuffer: imageBuffer) {
+            currentFrame = image
         }
     }
 
     init(display: SCDisplay) {
         self.display = display
-    }
-}
-
-nonisolated
-private class ScreenStreamer: NSObject, SCStreamOutput, SCStreamDelegate {
-    var scStream: SCStream?
-    var onFrame: ((CVImageBuffer) -> Void)
-    private let videoQueue = DispatchQueue(label: "VideoQueue")
-
-    /** Stop streaming if any exists but do nothing if not */
-    func close() async {
-        do {
-            try await scStream?.stopCapture()
-        } catch {}
-        scStream = nil
-    }
-
-    func stream(_ stream: SCStream, didOutputSampleBuffer sampleBuffer: CMSampleBuffer, of type: SCStreamOutputType) {
-        guard sampleBuffer.isValid else { return }
-        switch type {
-        case .screen:
-            guard let pixelBuffer = sampleBuffer.imageBuffer else { return }
-            onFrame(pixelBuffer)
-        default:
-            return
-        }
-    }
-
-    init(display: SCDisplay, onFrame: @escaping (CVImageBuffer) -> Void) throws {
-        self.onFrame = onFrame
-        super.init()
-        let filter: SCContentFilter = SCContentFilter(display: display, excludingApplications: [], exceptingWindows: [])
-        let configuration = SCStreamConfiguration()
-        configuration.minimumFrameInterval = CMTime.zero  // Native rate
-        configuration.queueDepth = 4
-        scStream = SCStream(filter: filter, configuration: configuration, delegate: self)
-        try scStream!.addStreamOutput(self, type: .screen, sampleHandlerQueue: videoQueue)
-        scStream!.startCapture()
     }
 }

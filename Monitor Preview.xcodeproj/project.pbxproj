@@ -7,24 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F835152C2FD230C50075781F /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F835152B2FD230C20075781F /* utils.swift */; };
 		F87983112809C89000032A8D /* Monitor_PreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87983102809C89000032A8D /* Monitor_PreviewApp.swift */; };
 		F87983132809C89000032A8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87983122809C89000032A8D /* ContentView.swift */; };
 		F87983152809C89300032A8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87983142809C89300032A8D /* Assets.xcassets */; };
 		F87983182809C89300032A8D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87983172809C89300032A8D /* Preview Assets.xcassets */; };
-		F879833C2809D04E00032A8D /* DisplayStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833B2809D04E00032A8D /* DisplayStream.swift */; };
 		F879833E2809E74B00032A8D /* DisplayPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833D2809E74B00032A8D /* DisplayPreviewView.swift */; };
 		F8EC6E05280B21CA006C8B5C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8EC6E07280B21CA006C8B5C /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F825E226280A1CD100009AD7 /* icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = icon.svg; sourceTree = "<group>"; };
+		F835152B2FD230C20075781F /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 		F879830D2809C89000032A8D /* Monitor Preview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Monitor Preview.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F87983102809C89000032A8D /* Monitor_PreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitor_PreviewApp.swift; sourceTree = "<group>"; };
 		F87983122809C89000032A8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F87983142809C89300032A8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F87983172809C89300032A8D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F87983192809C89300032A8D /* Monitor_Preview.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Monitor_Preview.entitlements; sourceTree = "<group>"; };
-		F879833B2809D04E00032A8D /* DisplayStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayStream.swift; sourceTree = "<group>"; };
 		F879833D2809E74B00032A8D /* DisplayPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPreviewView.swift; sourceTree = "<group>"; };
 		F8EC6E06280B21CA006C8B5C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F8EC6E19280B929D006C8B5C /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -69,8 +69,8 @@
 				F87983142809C89300032A8D /* Assets.xcassets */,
 				F87983192809C89300032A8D /* Monitor_Preview.entitlements */,
 				F87983162809C89300032A8D /* Preview Content */,
-				F879833B2809D04E00032A8D /* DisplayStream.swift */,
 				F879833D2809E74B00032A8D /* DisplayPreviewView.swift */,
+				F835152B2FD230C20075781F /* utils.swift */,
 				F825E226280A1CD100009AD7 /* icon.svg */,
 				F8EC6E23280B9952006C8B5C /* README.md */,
 			);
@@ -165,7 +165,7 @@
 				F87983132809C89000032A8D /* ContentView.swift in Sources */,
 				F87983112809C89000032A8D /* Monitor_PreviewApp.swift in Sources */,
 				F879833E2809E74B00032A8D /* DisplayPreviewView.swift in Sources */,
-				F879833C2809D04E00032A8D /* DisplayStream.swift in Sources */,
+				F835152C2FD230C50075781F /* utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

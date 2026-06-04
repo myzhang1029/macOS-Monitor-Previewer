@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var displayList: [SCDisplay] = []
     @State private var error: Optional<String> = .none
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -25,16 +25,17 @@ struct ContentView: View {
                     /* the display id is unique */
                     ForEach($displayList, id: \.self.displayID) {
                         let disp = $0.wrappedValue;
+                        let props = DisplayProperty(display: disp)
                         NavigationLink(
                             destination: DisplayPreviewView(display: disp),
                             label: {
                                 VStack {
                                     HStack {
-                                        Text(displayName(display: disp))
+                                        Text(props.localizedName)
                                         Spacer()
                                     }
                                     HStack {
-                                        Text("[\(disp.displayID)] \(displayProp(display: disp))")
+                                        Text("[\(disp.displayID)] \(props.width)x\(props.height) @ \(props.refreshRate) Hz")
                                         Spacer()
                                     }
                                 }
@@ -60,9 +61,9 @@ struct ContentView: View {
             await refreshDisplays()
         }
     }
-    
+
     /** Refresh list of displays */
-    func refreshDisplays() async {
+    private func refreshDisplays() async {
         displayList = await getDisplays()
     }
 }
