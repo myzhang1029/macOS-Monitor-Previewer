@@ -6,30 +6,22 @@
 //
 
 import AppKit
-import Foundation
 import CoreGraphics
+import ScreenCaptureKit
 
 struct MPError: Error {
     var inner: CGError
 }
 
 /** Get an Array of active displays */
-func getDisplays() -> Result<[CGDirectDisplayID], MPError> {
-    let pDsplCnt = UnsafeMutablePointer<UInt32>.allocate(capacity: 1)
-    /* Get the number of active displays. Race condition? */
-    let result1 = CGGetOnlineDisplayList(UInt32.max, nil, pDsplCnt)
-    if result1 != .success {
-        return .failure(MPError(inner: result1))
+func getDisplays() async -> Result<[CGDirectDisplayID], MPError> {
+    guard let shareable = try? await SCShareableContent.current else {
+        print("No display found")
+        return .success([])
     }
-    let displays = UnsafeMutablePointer<CGDirectDisplayID>.allocate(capacity: Int(pDsplCnt.pointee))
-    /* Get active displays */
-    let result2 = CGGetOnlineDisplayList(pDsplCnt.pointee, displays, pDsplCnt)
-    if result2 != .success {
-        return .failure(MPError(inner: result2))
-    }
-    /* Convert result to a Swift Array */
-    let displaysArr = Array(UnsafeBufferPointer(start: displays, count: Int(pDsplCnt.pointee)))
-    return .success(displaysArr)
+    return .success(shareable.displays.map({ display in
+        display.displayID
+    }))
 }
 
 /** Find the localized human-readable name of a display */

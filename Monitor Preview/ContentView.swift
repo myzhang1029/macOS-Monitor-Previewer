@@ -43,21 +43,23 @@ struct ContentView: View {
                 }
                 VStack {
                     Divider()
-                    Button(action: refreshDisplays, label: {
+                    /*Button(action: refreshDisplays, label: {
                         Text(LocalizedStringKey("Refresh Displays"))
-                    })
+                    })*/
                     Spacer()
                 }
                 .frame(height: 35)
             }
             .frame(minWidth: 200, minHeight: 400)
         }
-        .onAppear(perform: refreshDisplays)
+        .task {
+            await refreshDisplays()
+        }
     }
     
     /** Refresh list of displays */
-    func refreshDisplays() {
-        switch getDisplays() {
+    func refreshDisplays() async {
+        switch await getDisplays() {
         case .success(let displays):
             displayList = displays
         case .failure(let cgerror):
