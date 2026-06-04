@@ -5,17 +5,15 @@
 //  Created by Zhang Maiyun on 2022-04-15.
 //
 
-import SwiftUI
-import CoreGraphics
 import ScreenCaptureKit
+import SwiftUI
 
 
 struct DisplayPreviewView: View {
-    @State var display: SCDisplay
-    @State var displayStream: CGDisplayStream?
+    private var display: SCDisplay
+    @State private var streamer: ScreenStreamer?
     @State var currentFrame: NSImage?
-    var dispatchQueue = DispatchQueue(label: "renderer.display", qos: .background, target: nil)
-    
+
     var body: some View {
         VStack{
             VStack {
@@ -34,60 +32,82 @@ struct DisplayPreviewView: View {
             Spacer()
             VStack {
                 Divider()
-                Button(action: setupStream, label: {
+                Button {
+                    Task {
+                        await streamer?.close()
+                        try? await setupStream()
+                    }
+                } label: {
                     Text(LocalizedStringKey("Restart"))
-                })
+                }
                 Spacer()
             }
             .frame(height: 35)
         }
         .frame(minWidth: 400, minHeight: 400)
-        .onAppear(perform: setupStream)
+        .task {
+            try? await setupStream()
+        }
         .onDisappear {
-            displayStream?.stop()
+            Task {
+                await streamer?.close()
+            }
         }
     }
-    
-    /** Update the state with a new frame */
-    func updateFrame(status: CGDisplayStreamFrameStatus, _displayTime: UInt64, frameSurface: IOSurfaceRef?, _updateRef: CGDisplayStreamUpdate?) {
-        switch status {
-        case .frameIdle:
-            /* Do nothing */
-            break
-        case .frameBlank: fallthrough
-        case .stopped:
-            /* Clear display */
-            if currentFrame != nil {
-                currentFrame = nil
-            }
-            break
-        case .frameComplete:
-            if frameSurface == nil {
-                break
-            }
-            /* Nice, update the frame */
-            let ciImage = CIImage(ioSurface: frameSurface!)
-            let context = CIContext()
-            let cgImage = context.createCGImage(ciImage, from: ciImage.extent)
-            if cgImage != nil {
-                currentFrame = NSImage(cgImage: cgImage!, size: .zero)
-            }
-            break
-        @unknown default:
-            print("Got an unexpected switch case.")
-            fatalError()
-        }
-    }
-    
+
     /** Set up display streaming */
-    func setupStream() {
-        /* Stop existing one if any */
-        displayStream?.stop()
-        displayStream = streamDisplay(display: display, dispatchQueue: dispatchQueue, handler: updateFrame)
-        displayStream?.start()
+    func setupStream() async throws {
+        streamer = try ScreenStreamer(display: display, onFrame: updateFrame)
     }
-    
+
+    private func updateFrame(ciImage: CIImage) {
+        let context = CIContext()
+        let cgImage = context.createCGImage(ciImage, from: ciImage.extent)
+        if cgImage != nil {
+            currentFrame = NSImage(cgImage: cgImage!, size: .zero)
+        }
+    }
+
     init(display: SCDisplay) {
         self.display = display
+    }
+}
+
+nonisolated
+private class ScreenStreamer: NSObject, SCStreamOutput, SCStreamDelegate {
+    var scStream: SCStream?
+    var onFrame: ((CIImage) -> Void)
+    private let videoQueue = DispatchQueue(label: "VideoQueue")
+
+    /** Stop streaming if any exists but do nothing if not */
+    func close() async {
+        do {
+            try await scStream?.stopCapture()
+        } catch {}
+        scStream = nil
+    }
+
+    func stream(_ stream: SCStream, didOutputSampleBuffer sampleBuffer: CMSampleBuffer, of type: SCStreamOutputType) {
+        guard sampleBuffer.isValid else { return }
+        switch type {
+        case .screen:
+            guard let pixelBuffer = sampleBuffer.imageBuffer else { return }
+            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+            onFrame(ciImage)
+        default:
+            return
+        }
+    }
+
+    init(display: SCDisplay, onFrame: @escaping (CIImage) -> Void) throws {
+        self.onFrame = onFrame
+        super.init()
+        let filter: SCContentFilter = SCContentFilter(display: display, excludingApplications: [], exceptingWindows: [])
+        let configuration = SCStreamConfiguration()
+        configuration.minimumFrameInterval = CMTime(value: 1, timescale: 60) // TODO
+        configuration.queueDepth = 5
+        scStream = SCStream(filter: filter, configuration: configuration, delegate: self)
+        try scStream!.addStreamOutput(self, type: .screen, sampleHandlerQueue: videoQueue)
+        scStream!.startCapture()
     }
 }

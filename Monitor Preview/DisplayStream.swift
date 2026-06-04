@@ -44,39 +44,3 @@ func displayProp(display: SCDisplay) -> String {
     }
     return ""
 }
-
-/** Set up a display streaming with default parameters and internal size */
-func streamDisplay(
-    display: SCDisplay,
-    dispatchQueue: DispatchQueue,
-    handler: CGDisplayStreamFrameAvailableHandler?
-) -> CGDisplayStream? {
-    let displayId = display.displayID
-    var width: Int
-    var height: Int
-    switch CGDisplayCreateImage(displayId) {
-    case .some(let render):
-        width = render.width
-        height = render.height
-    case .none:
-        switch CGDisplayCopyDisplayMode(displayId)
-        {
-        case .some(let displayMode):
-            width = displayMode.pixelWidth
-            height = displayMode.pixelHeight
-        case .none:
-            width = 1920
-            height = 1080
-        }
-    }
-    return CGDisplayStream(
-        dispatchQueueDisplay: displayId,
-        outputWidth: width,
-        outputHeight: height,
-        pixelFormat: Int32(k32BGRAPixelFormat),
-        /* Use the whole surface, preserve aspect ratio, show cursor */
-        properties: nil,
-        queue: dispatchQueue,
-        handler: handler
-    )
-}
