@@ -7,10 +7,11 @@
 
 import SwiftUI
 import CoreGraphics
+import ScreenCaptureKit
 
 
 struct DisplayPreviewView: View {
-    @State var displayId: CGDirectDisplayID
+    @State var display: SCDisplay
     @State var displayStream: CGDisplayStream?
     @State var currentFrame: NSImage?
     var dispatchQueue = DispatchQueue(label: "renderer.display", qos: .background, target: nil)
@@ -19,7 +20,7 @@ struct DisplayPreviewView: View {
         VStack{
             VStack {
                 Spacer()
-                Text(LocalizedStringKey("Previewing Display \(displayId)")).font(.title2)
+                Text(LocalizedStringKey("Previewing Display \(display.displayID)")).font(.title2)
             }
             .frame(height: 35)
             Spacer()
@@ -82,17 +83,11 @@ struct DisplayPreviewView: View {
     func setupStream() {
         /* Stop existing one if any */
         displayStream?.stop()
-        displayStream = streamDisplay(displayId: displayId, dispatchQueue: dispatchQueue, handler: updateFrame)
+        displayStream = streamDisplay(display: display, dispatchQueue: dispatchQueue, handler: updateFrame)
         displayStream?.start()
     }
     
-    init(displayId: CGDirectDisplayID) {
-        self.displayId = displayId
-    }
-}
-
-struct DisplayPreviewView_Previews: PreviewProvider {
-    static var previews: some View {
-        DisplayPreviewView(displayId: 1)
+    init(display: SCDisplay) {
+        self.display = display
     }
 }

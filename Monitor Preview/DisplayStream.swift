@@ -14,23 +14,21 @@ struct MPError: Error {
 }
 
 /** Get an Array of active displays */
-func getDisplays() async -> [CGDirectDisplayID] {
+func getDisplays() async -> [SCDisplay] {
     guard let shareable = try? await SCShareableContent.current else {
         print("No display found")
         return []
     }
-    return shareable.displays.map({ display in
-        display.displayID
-    })
+    return shareable.displays
 }
 
 /** Find the localized human-readable name of a display */
-func displayName(displayId: CGDirectDisplayID) -> String {
+func displayName(display: SCDisplay) -> String {
     let nsScreens = NSScreen.screens
     var name = ""
     for nsScreen in nsScreens {
         let screenId = nsScreen.deviceDescription[NSDeviceDescriptionKey(rawValue: "NSScreenNumber")]
-        if screenId as! UInt32 == displayId {
+        if screenId as! UInt32 == display.displayID {
             name = nsScreen.localizedName
             break
         }
@@ -39,7 +37,8 @@ func displayName(displayId: CGDirectDisplayID) -> String {
 }
 
 /** Summarize display properties */
-func displayProp(displayId: CGDirectDisplayID) -> String {
+func displayProp(display: SCDisplay) -> String {
+    let displayId = display.displayID
     var prop = ""
     switch CGDisplayCopyDisplayMode(displayId)
     {
@@ -56,10 +55,11 @@ func displayProp(displayId: CGDirectDisplayID) -> String {
 
 /** Set up a display streaming with default parameters and internal size */
 func streamDisplay(
-    displayId: CGDirectDisplayID,
+    display: SCDisplay,
     dispatchQueue: DispatchQueue,
     handler: CGDisplayStreamFrameAvailableHandler?
 ) -> CGDisplayStream? {
+    let displayId = display.displayID
     var width: Int
     var height: Int
     switch CGDisplayCreateImage(displayId) {

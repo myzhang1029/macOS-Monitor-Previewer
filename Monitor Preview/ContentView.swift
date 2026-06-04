@@ -5,11 +5,11 @@
 //  Created by Zhang Maiyun on 2022-04-15.
 //
 
+import ScreenCaptureKit
 import SwiftUI
 
-
 struct ContentView: View {
-    @State private var displayList: [CGDirectDisplayID] = []
+    @State private var displayList: [SCDisplay] = []
     @State private var error: Optional<String> = .none
     
     var body: some View {
@@ -24,17 +24,17 @@ struct ContentView: View {
                 List {
                     /* the display id is unique */
                     ForEach($displayList, id: \.self) {
-                        let dId = $0.wrappedValue;
+                        let disp = $0.wrappedValue;
                         NavigationLink(
-                            destination: DisplayPreviewView(displayId: dId),
+                            destination: DisplayPreviewView(display: disp),
                             label: {
                                 VStack {
                                     HStack {
-                                        Text(displayName(displayId: dId))
+                                        Text(displayName(display: disp))
                                         Spacer()
                                     }
                                     HStack {
-                                        Text(LocalizedStringKey("\(displayProp(displayId: dId)) @ \(dId)"))
+                                        Text(LocalizedStringKey("\(displayProp(display: disp)) @ \(disp.displayID)"))
                                         Spacer()
                                     }
                                 }
