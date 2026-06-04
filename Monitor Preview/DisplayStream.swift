@@ -24,16 +24,14 @@ func getDisplays() async -> [SCDisplay] {
 
 /** Find the localized human-readable name of a display */
 func displayName(display: SCDisplay) -> String {
-    let nsScreens = NSScreen.screens
-    var name = ""
-    for nsScreen in nsScreens {
-        let screenId = nsScreen.deviceDescription[NSDeviceDescriptionKey(rawValue: "NSScreenNumber")]
+    let prop = NSDeviceDescriptionKey(rawValue: "NSScreenNumber")
+    for nsScreen in NSScreen.screens {
+        let screenId = nsScreen.deviceDescription[prop]
         if screenId as! UInt32 == display.displayID {
-            name = nsScreen.localizedName
-            break
+            return nsScreen.localizedName
         }
     }
-    return name
+    return ""
 }
 
 /** Summarize display properties */
