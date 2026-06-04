@@ -59,12 +59,7 @@ struct ContentView: View {
     
     /** Refresh list of displays */
     func refreshDisplays() async {
-        switch await getDisplays() {
-        case .success(let displays):
-            displayList = displays
-        case .failure(let cgerror):
-            error = .some("CoreGraphics error \(cgerror)")
-        }
+        displayList = await getDisplays()
     }
 }
 

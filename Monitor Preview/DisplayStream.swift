@@ -14,14 +14,14 @@ struct MPError: Error {
 }
 
 /** Get an Array of active displays */
-func getDisplays() async -> Result<[CGDirectDisplayID], MPError> {
+func getDisplays() async -> [CGDirectDisplayID] {
     guard let shareable = try? await SCShareableContent.current else {
         print("No display found")
-        return .success([])
+        return []
     }
-    return .success(shareable.displays.map({ display in
+    return shareable.displays.map({ display in
         display.displayID
-    }))
+    })
 }
 
 /** Find the localized human-readable name of a display */
