@@ -104,8 +104,8 @@ private class ScreenStreamer: NSObject, SCStreamOutput, SCStreamDelegate {
         super.init()
         let filter: SCContentFilter = SCContentFilter(display: display, excludingApplications: [], exceptingWindows: [])
         let configuration = SCStreamConfiguration()
-        configuration.minimumFrameInterval = CMTime(value: 1, timescale: 60) // TODO
-        configuration.queueDepth = 5
+        configuration.minimumFrameInterval = CMTime.zero  // Native rate
+        configuration.queueDepth = 4
         scStream = SCStream(filter: filter, configuration: configuration, delegate: self)
         try scStream!.addStreamOutput(self, type: .screen, sampleHandlerQueue: videoQueue)
         scStream!.startCapture()
