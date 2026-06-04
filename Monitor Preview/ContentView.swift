@@ -23,7 +23,7 @@ struct ContentView: View {
                 Spacer()
                 List {
                     /* the display id is unique */
-                    ForEach($displayList, id: \.self) {
+                    ForEach($displayList, id: \.self.displayID) {
                         let disp = $0.wrappedValue;
                         NavigationLink(
                             destination: DisplayPreviewView(display: disp),
@@ -34,7 +34,7 @@ struct ContentView: View {
                                         Spacer()
                                     }
                                     HStack {
-                                        Text(LocalizedStringKey("\(displayProp(display: disp)) @ \(disp.displayID)"))
+                                        Text(LocalizedStringKey("[\(disp.displayID)] \(displayProp(display: disp))"))
                                         Spacer()
                                     }
                                 }
