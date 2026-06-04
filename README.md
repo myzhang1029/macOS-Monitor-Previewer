@@ -6,7 +6,8 @@ in an application window.
 It is especially useful if, when the second monitor is a public display
 (e.g. a theatre screen), and we want to make sure the content on it is correct.
 
-Made for Pearson College UWC tech crew. Written with modern Swift and CoreGraphics.
+Made for Pearson College UWC tech crew. Written with modern Swift and
+ScreenCaptureKit and supports macOS 12.3+.
 
 ## Overview
 
