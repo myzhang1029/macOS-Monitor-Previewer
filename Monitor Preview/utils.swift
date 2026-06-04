@@ -73,7 +73,6 @@ class DisplayProperty {
 class ScreenStreamer: NSObject, SCStreamOutput, SCStreamDelegate {
     var scStream: SCStream?
     var onFrame: ((CVImageBuffer) -> Void)
-    private let videoQueue = DispatchQueue(label: "VideoQueue")
 
     /** Stop streaming if any exists but do nothing if not */
     func close() async {
@@ -100,6 +99,7 @@ class ScreenStreamer: NSObject, SCStreamOutput, SCStreamDelegate {
         configuration.minimumFrameInterval = CMTime.zero  // Native rate
         configuration.queueDepth = 4
         scStream = SCStream(filter: filter, configuration: configuration, delegate: self)
+        let videoQueue = DispatchQueue(label: "VideoQueue")
         try scStream!.addStreamOutput(self, type: .screen, sampleHandlerQueue: videoQueue)
         scStream!.startCapture()
     }
