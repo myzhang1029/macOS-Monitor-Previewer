@@ -84,14 +84,12 @@ class ScreenStreamer: NSObject, SCStreamOutput, SCStreamDelegate {
     }
 
     func stream(_ stream: SCStream, didOutputSampleBuffer sampleBuffer: CMSampleBuffer, of type: SCStreamOutputType) {
-        guard sampleBuffer.isValid else { return }
-        switch type {
-        case .screen:
-            guard let pixelBuffer = sampleBuffer.imageBuffer else { return }
-            onFrame(pixelBuffer)
-        default:
+        guard sampleBuffer.isValid && type == .screen else {
+            print("Invalid sampleBuffer or unexpected type \(type)")
             return
         }
+        guard let pixelBuffer = sampleBuffer.imageBuffer else { return }
+        onFrame(pixelBuffer)
     }
 
     init(display: SCDisplay, onFrame: @escaping (CVImageBuffer) -> Void) throws {
