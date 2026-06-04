@@ -22,8 +22,8 @@ struct DisplayPreviewView: View {
             }
             .frame(height: 35)
             Spacer()
-            if currentFrame != nil {
-                Image(nsImage: currentFrame!)
+            if let frame = currentFrame {
+                Image(nsImage: frame)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             } else {
@@ -60,8 +60,9 @@ struct DisplayPreviewView: View {
         streamer = try ScreenStreamer(display: display, onFrame: updateFrame)
     }
 
-    private func updateFrame(ciImage: CIImage) {
+    private func updateFrame(imageBuffer: CVImageBuffer) {
         let context = CIContext()
+        let ciImage = CIImage(cvPixelBuffer: imageBuffer)
         let cgImage = context.createCGImage(ciImage, from: ciImage.extent)
         if cgImage != nil {
             currentFrame = NSImage(cgImage: cgImage!, size: .zero)
@@ -76,7 +77,7 @@ struct DisplayPreviewView: View {
 nonisolated
 private class ScreenStreamer: NSObject, SCStreamOutput, SCStreamDelegate {
     var scStream: SCStream?
-    var onFrame: ((CIImage) -> Void)
+    var onFrame: ((CVImageBuffer) -> Void)
     private let videoQueue = DispatchQueue(label: "VideoQueue")
 
     /** Stop streaming if any exists but do nothing if not */
@@ -92,14 +93,13 @@ private class ScreenStreamer: NSObject, SCStreamOutput, SCStreamDelegate {
         switch type {
         case .screen:
             guard let pixelBuffer = sampleBuffer.imageBuffer else { return }
-            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-            onFrame(ciImage)
+            onFrame(pixelBuffer)
         default:
             return
         }
     }
 
-    init(display: SCDisplay, onFrame: @escaping (CIImage) -> Void) throws {
+    init(display: SCDisplay, onFrame: @escaping (CVImageBuffer) -> Void) throws {
         self.onFrame = onFrame
         super.init()
         let filter: SCContentFilter = SCContentFilter(display: display, excludingApplications: [], exceptingWindows: [])

@@ -5,13 +5,8 @@
 //  Created by Zhang Maiyun on 2022-04-15.
 //
 
-import AppKit
 import CoreGraphics
 import ScreenCaptureKit
-
-struct MPError: Error {
-    var inner: CGError
-}
 
 /** Get an Array of active displays */
 func getDisplays() async -> [SCDisplay] {

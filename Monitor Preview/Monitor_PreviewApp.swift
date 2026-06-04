@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CoreGraphics
 
 @main
 struct Monitor_PreviewApp: App {
