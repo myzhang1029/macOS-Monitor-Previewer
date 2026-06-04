@@ -24,8 +24,11 @@ struct ContentView: View {
                 List {
                     /* the display id is unique */
                     ForEach($displayList, id: \.self.displayID) {
-                        let disp = $0.wrappedValue;
+                        let disp = $0.wrappedValue
                         let props = DisplayProperty(display: disp)
+                        let width = String(format: "%d", props.width)
+                        let height = String(format: "%d", props.height)
+                        let refreshRate = String(format: "%.1f", props.refreshRate)
                         NavigationLink(
                             destination: DisplayPreviewView(display: disp),
                             label: {
@@ -35,7 +38,7 @@ struct ContentView: View {
                                         Spacer()
                                     }
                                     HStack {
-                                        Text("[\(disp.displayID)] \(props.width)x\(props.height) @ \(props.refreshRate) Hz")
+                                        Text("[\(disp.displayID)] \(width)x\(height) @ \(refreshRate) Hz")
                                         Spacer()
                                     }
                                 }
