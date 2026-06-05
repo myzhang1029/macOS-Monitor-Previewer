@@ -11,7 +11,7 @@ import SwiftUI
 struct DisplayPreviewView: View {
     private var display: SCDisplay
     @State private var streamer: ScreenStreamer?
-    @State var currentFrame: NSImage?
+    @State private var currentFrame: NSImage?
 
     var body: some View {
         VStack {

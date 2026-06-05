@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var displayList: [SCDisplay] = []
-    @State private var error: String?
 
     var body: some View {
         NavigationView {
@@ -29,20 +28,18 @@ struct ContentView: View {
                         let width = String(format: "%d", props.width)
                         let height = String(format: "%d", props.height)
                         let refreshRate = String(format: "%.1f", props.refreshRate)
-                        NavigationLink(
-                            destination: DisplayPreviewView(display: disp),
-                            label: {
-                                VStack {
-                                    HStack {
-                                        Text(props.localizedName)
-                                        Spacer()
-                                    }
-                                    HStack {
-                                        Text("[\(disp.displayID)] \(width)x\(height) @ \(refreshRate) Hz")
-                                        Spacer()
-                                    }
+                        NavigationLink(destination: DisplayPreviewView(display: disp)) {
+                            VStack {
+                                HStack {
+                                    Text(props.localizedName)
+                                    Spacer()
                                 }
-                            })
+                                HStack {
+                                    Text("[\(disp.displayID)] \(width)x\(height) @ \(refreshRate) Hz")
+                                    Spacer()
+                                }
+                            }
+                        }
                     }
                 }
                 VStack {

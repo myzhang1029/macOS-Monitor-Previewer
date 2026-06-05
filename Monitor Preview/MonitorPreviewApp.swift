@@ -22,7 +22,7 @@ struct MonitorPreviewApp: App {
 }
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        return true
+    func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
+        true
     }
 }

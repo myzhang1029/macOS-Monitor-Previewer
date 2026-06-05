@@ -89,8 +89,8 @@ class ScreenStreamer: NSObject, SCStreamOutput, SCStreamDelegate {
         scStream = nil
     }
 
-    func stream(_ stream: SCStream, didOutputSampleBuffer sampleBuffer: CMSampleBuffer, of type: SCStreamOutputType) {
-        guard sampleBuffer.isValid && type == .screen else {
+    func stream(_: SCStream, didOutputSampleBuffer sampleBuffer: CMSampleBuffer, of type: SCStreamOutputType) {
+        guard sampleBuffer.isValid, type == .screen else {
             print("Invalid sampleBuffer or unexpected type \(type)")
             return
         }
