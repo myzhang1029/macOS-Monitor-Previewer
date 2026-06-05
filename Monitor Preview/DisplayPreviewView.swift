@@ -57,7 +57,7 @@ struct DisplayPreviewView: View {
     /** Set up display streaming */
     private func setupStream() async throws {
         // Work around the bug: https://stackoverflow.com/q/77513220/9347959
-        // TODO: Figure out exact versions. 12.7.6 is known bad; 26.0 is known good
+        // 12.7.6 and before are known bad; 13.7.7 and after are known good
         if #available(macOS 13.0, *) {
             streamer = try ScreenStreamer(display: display, onFrame: updateFrame)
         } else {
