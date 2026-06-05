@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var displayList: [SCDisplay] = []
-    @State private var error: Optional<String> = .none
+    @State private var error: String?
 
     var body: some View {
         NavigationView {

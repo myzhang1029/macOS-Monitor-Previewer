@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 @main
-struct Monitor_PreviewApp: App {
+struct MonitorPreviewApp: App {
     // Based on https://stackoverflow.com/a/65743682/9347959
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 

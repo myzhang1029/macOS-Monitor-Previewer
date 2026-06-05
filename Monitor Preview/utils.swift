@@ -5,7 +5,6 @@
 //  Created by Maiyun Zhang on 2026-06-04.
 //
 
-
 import AppKit
 import CoreGraphics
 import CoreImage
@@ -21,7 +20,6 @@ func cvImageBufferToNSImage(imageBuffer: CVImageBuffer) -> NSImage? {
     }
     return NSImage(cgImage: cgImage, size: .zero)
 }
-
 
 /** Get an Array of active displays */
 func getDisplays() async -> [SCDisplay] {
@@ -39,7 +37,6 @@ func getApplications() async -> [SCRunningApplication] {
     return shareable.applications
 }
 
-
 class DisplayProperty {
     let width: Int
     let height: Int
@@ -55,14 +52,16 @@ class DisplayProperty {
     }
 
     convenience init(display: SCDisplay) {
-        var width: Int? = nil
-        var height: Int? = nil
-        var refreshRate: Double? = nil
-        var localizedName: String? = nil
+        var width: Int?
+        var height: Int?
+        var refreshRate: Double?
+        var localizedName: String?
         let prop = NSDeviceDescriptionKey(rawValue: "NSScreenNumber")
         for nsScreen in NSScreen.screens {
-            let screenId = nsScreen.deviceDescription[prop]
-            if screenId as! UInt32 == display.displayID {
+            guard let screenId = nsScreen.deviceDescription[prop] as? CGDirectDisplayID else {
+                continue
+            }
+            if screenId == display.displayID {
                 localizedName = nsScreen.localizedName
                 width = Int(nsScreen.frame.width * nsScreen.backingScaleFactor)
                 height = Int(nsScreen.frame.height * nsScreen.backingScaleFactor)
@@ -80,7 +79,7 @@ class DisplayProperty {
 
 class ScreenStreamer: NSObject, SCStreamOutput, SCStreamDelegate {
     var scStream: SCStream?
-    var onFrame: ((CVImageBuffer) -> Void)
+    var onFrame: (CVImageBuffer) -> Void
 
     /** Stop streaming if any exists but do nothing if not */
     func close() async {
@@ -106,7 +105,8 @@ class ScreenStreamer: NSObject, SCStreamOutput, SCStreamDelegate {
     }
 
     /** init with the given array of applications to capture */
-    convenience init(display: SCDisplay, apps: [SCRunningApplication], onFrame: @escaping (CVImageBuffer) -> Void) throws {
+    convenience init(display: SCDisplay, apps: [SCRunningApplication],
+                     onFrame: @escaping (CVImageBuffer) -> Void) throws {
         let filter = SCContentFilter(display: display, including: apps, exceptingWindows: [])
         try self.init(filter: filter, onFrame: onFrame)
     }
