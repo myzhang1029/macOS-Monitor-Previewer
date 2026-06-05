@@ -3,22 +3,21 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F835152C2FD230C50075781F /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F835152B2FD230C20075781F /* utils.swift */; };
 		F87983112809C89000032A8D /* MonitorPreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87983102809C89000032A8D /* MonitorPreviewApp.swift */; };
 		F87983132809C89000032A8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87983122809C89000032A8D /* ContentView.swift */; };
 		F87983152809C89300032A8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87983142809C89300032A8D /* Assets.xcassets */; };
 		F87983182809C89300032A8D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F87983172809C89300032A8D /* Preview Assets.xcassets */; };
 		F879833E2809E74B00032A8D /* DisplayPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F879833D2809E74B00032A8D /* DisplayPreviewView.swift */; };
 		F8EC6E05280B21CA006C8B5C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8EC6E07280B21CA006C8B5C /* Localizable.strings */; };
+		F8F4FB992FD327370085E27D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F4FB982FD327320085E27D /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F825E226280A1CD100009AD7 /* icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = icon.svg; sourceTree = "<group>"; };
-		F835152B2FD230C20075781F /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
 		F879830D2809C89000032A8D /* Monitor Preview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Monitor Preview.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F87983102809C89000032A8D /* MonitorPreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorPreviewApp.swift; sourceTree = "<group>"; };
 		F87983122809C89000032A8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -31,7 +30,12 @@
 		F8EC6E1A280B92A3006C8B5C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F8EC6E1E280B9327006C8B5C /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F8EC6E23280B9952006C8B5C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		F8F4FB982FD327320085E27D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		F8F4FB9A2FD327970085E27D /* utils */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = utils; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F879830A2809C89000032A8D /* Frameworks */ = {
@@ -65,12 +69,13 @@
 			isa = PBXGroup;
 			children = (
 				F87983102809C89000032A8D /* MonitorPreviewApp.swift */,
+				F8F4FB982FD327320085E27D /* AppDelegate.swift */,
 				F87983122809C89000032A8D /* ContentView.swift */,
 				F87983142809C89300032A8D /* Assets.xcassets */,
 				F87983192809C89300032A8D /* Monitor_Preview.entitlements */,
 				F87983162809C89300032A8D /* Preview Content */,
 				F879833D2809E74B00032A8D /* DisplayPreviewView.swift */,
-				F835152B2FD230C20075781F /* utils.swift */,
+				F8F4FB9A2FD327970085E27D /* utils */,
 				F825E226280A1CD100009AD7 /* icon.svg */,
 				F8EC6E23280B9952006C8B5C /* README.md */,
 			);
@@ -99,6 +104,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F8F4FB9A2FD327970085E27D /* utils */,
 			);
 			name = "Monitor Preview";
 			productName = "Monitor Preview";
@@ -164,7 +172,7 @@
 				F87983132809C89000032A8D /* ContentView.swift in Sources */,
 				F87983112809C89000032A8D /* MonitorPreviewApp.swift in Sources */,
 				F879833E2809E74B00032A8D /* DisplayPreviewView.swift in Sources */,
-				F835152C2FD230C50075781F /* utils.swift in Sources */,
+				F8F4FB992FD327370085E27D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

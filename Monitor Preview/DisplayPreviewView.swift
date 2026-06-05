@@ -54,6 +54,10 @@ struct DisplayPreviewView: View {
         }
     }
 
+    init(display: SCDisplay) {
+        self.display = display
+    }
+
     /** Set up display streaming */
     private func setupStream() async throws {
         // Work around the bug: https://stackoverflow.com/q/77513220/9347959
@@ -61,7 +65,7 @@ struct DisplayPreviewView: View {
         if #available(macOS 13.0, *) {
             streamer = try ScreenStreamer(display: display, onFrame: updateFrame)
         } else {
-            streamer = try ScreenStreamer(display: display, apps: await getApplications(), onFrame: updateFrame)
+            streamer = try ScreenStreamer(display: display, apps: await scGetApplications(), onFrame: updateFrame)
         }
     }
 
@@ -69,10 +73,6 @@ struct DisplayPreviewView: View {
         if let image = cvImageBufferToNSImage(imageBuffer: imageBuffer) {
             currentFrame = image
         }
-    }
-
-    init(display: SCDisplay) {
-        self.display = display
     }
 }
 

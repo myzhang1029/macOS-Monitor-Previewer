@@ -22,8 +22,8 @@ struct ContentView: View {
                 Spacer()
                 List {
                     /* the display id is unique */
-                    ForEach($displayList, id: \.self.displayID) {
-                        let disp = $0.wrappedValue
+                    ForEach($displayList, id: \.self.displayID) { dispWrapped in
+                        let disp = dispWrapped.wrappedValue
                         let props = DisplayProperty(display: disp)
                         let width = String(format: "%d", props.width)
                         let height = String(format: "%d", props.height)
@@ -64,7 +64,7 @@ struct ContentView: View {
 
     /** Refresh list of displays */
     private func refreshDisplays() async {
-        displayList = await getDisplays()
+        displayList = await scGetDisplays()
     }
 }
 
