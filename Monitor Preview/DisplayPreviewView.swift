@@ -76,3 +76,28 @@ struct DisplayPreviewView: View {
         self.display = display
     }
 }
+
+struct DisplayPreviewView_Previews: PreviewProvider {
+    struct PreviewLoader: View {
+        @State private var display: SCDisplay?
+
+        var body: some View {
+            Group {
+                if let display {
+                    DisplayPreviewView(display: display)
+                } else {
+                    Text("Loading preview...")
+                }
+            }
+            .frame(minWidth: 400, minHeight: 300)
+            .task {
+                let current = try? await SCShareableContent.current
+                display = current?.displays.first
+            }
+        }
+    }
+
+    static var previews: some View {
+        PreviewLoader()
+    }
+}
