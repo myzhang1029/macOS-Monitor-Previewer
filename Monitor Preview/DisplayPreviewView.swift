@@ -57,7 +57,13 @@ struct DisplayPreviewView: View {
 
     /** Set up display streaming */
     private func setupStream() async throws {
-        streamer = try ScreenStreamer(display: display, onFrame: updateFrame)
+        // Work around the bug: https://stackoverflow.com/q/77513220/9347959
+        // TODO: Figure out exact versions. 12.7.6 is known bad; 26.0 is known good
+        if #available(macOS 13.0, *) {
+            streamer = try ScreenStreamer(display: display, onFrame: updateFrame)
+        } else {
+            streamer = try ScreenStreamer(display: display, apps: await getApplications(), onFrame: updateFrame)
+        }
     }
 
     private func updateFrame(imageBuffer: CVImageBuffer) {

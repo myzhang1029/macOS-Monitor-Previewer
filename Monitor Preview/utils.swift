@@ -31,6 +31,14 @@ func getDisplays() async -> [SCDisplay] {
     return shareable.displays
 }
 
+/** Get an Array of active applications */
+func getApplications() async -> [SCRunningApplication] {
+    guard let shareable = try? await SCShareableContent.current else {
+        return []
+    }
+    return shareable.applications
+}
+
 
 class DisplayProperty {
     let width: Int
@@ -91,10 +99,21 @@ class ScreenStreamer: NSObject, SCStreamOutput, SCStreamDelegate {
         onFrame(pixelBuffer)
     }
 
-    init(display: SCDisplay, onFrame: @escaping (CVImageBuffer) -> Void) throws {
+    /** init with `excludingApplications:[]` (has issues on macOS 12.x; see `DisplayPreviewView.setupStream`)  */
+    convenience init(display: SCDisplay, onFrame: @escaping (CVImageBuffer) -> Void) throws {
+        let filter = SCContentFilter(display: display, excludingApplications: [], exceptingWindows: [])
+        try self.init(filter: filter, onFrame: onFrame)
+    }
+
+    /** init with the given array of applications to capture */
+    convenience init(display: SCDisplay, apps: [SCRunningApplication], onFrame: @escaping (CVImageBuffer) -> Void) throws {
+        let filter = SCContentFilter(display: display, including: apps, exceptingWindows: [])
+        try self.init(filter: filter, onFrame: onFrame)
+    }
+
+    init(filter: SCContentFilter, onFrame: @escaping (CVImageBuffer) -> Void) throws {
         self.onFrame = onFrame
         super.init()
-        let filter: SCContentFilter = SCContentFilter(display: display, excludingApplications: [], exceptingWindows: [])
         let configuration = SCStreamConfiguration()
         configuration.minimumFrameInterval = CMTime.zero  // Native rate
         configuration.queueDepth = 4
